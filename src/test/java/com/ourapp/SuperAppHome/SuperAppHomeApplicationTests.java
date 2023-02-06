@@ -1,10 +1,10 @@
-package com.ourapp;
+package com.ourapp.SuperAppHome;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SuperAppApplicationTests {
+class SuperAppHomeApplicationTests {
 
 	@Test
 	void contextLoads() {
