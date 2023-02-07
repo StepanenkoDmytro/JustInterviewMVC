@@ -10,9 +10,23 @@
 </head>
 <body>
 <header th:replace="~{blocks/header :: header}"></header>
-<div class="container">
-  <h1>This is blog page!</h1>
+
+<div class="container mt-50" >
+  <div class="container">
+
+    <ul class="nav nav-pills">
+      <h1>Блог</h1>
+      <li class="nav-item py-2 mx-5"><a href="/api/v1/blog/add" class="btn btn-secondary">Додати статтю</a></li>
+    </ul>
+  </div>
+
+  <div th:each="el : ${allPosts}" class="alert alert-info mt-2">
+    <h3 th:text="${el.title}"/>
+    <p th:text="${el.anons}"/>
+    <a th:href="'/api/v1/blog/' + ${el.id}" class="btn btn-warning">Детальніше</a>
+  </div>
 </div>
+
 <div th:replace="~{blocks/footer :: footer}"></div>
 </body>
 </html>
