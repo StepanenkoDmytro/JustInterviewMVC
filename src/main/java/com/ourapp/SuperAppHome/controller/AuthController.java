@@ -34,7 +34,7 @@ public class AuthController {
 
     @PostMapping("/registration")
     public String addUser(User user, Map<String, Object> model) {
-        Optional<User> userFromDb = userService.getByEmail(user.getEmail());
+        Optional<User> userFromDb = userService.getUserByEmail(user.getEmail());
         if (userFromDb.isPresent()) {
             model.put("message", "User exists!");
             return "registration";

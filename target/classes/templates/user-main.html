@@ -10,10 +10,29 @@
 </head>
 <body>
 <header th:replace="~{blocks/header :: header}"></header>
-<div class="container">
-  <h1>This is user page.</h1>
-  <h2>Name. Email. Change</h2>
+<!--<div class="container mt-5 mb-5">-->
+<!--  <h1 th:text="${user.username}"/>-->
+<!--  <div th:each="el : ${user}">-->
+<!--&lt;!&ndash;    <form method="get">&ndash;&gt;-->
+<!--      <h4>Username:</h4><input type="text" th:text="${el.username}" name="username" placeholder="Введіть назву статті" class="form-control"><br>-->
+<!--      <h4>Email:</h4><input type="text" th:text="${el.email}" name="email" placeholder="Введіть анонс статті" class="form-control"><br>-->
+<!--      <h4>First Name:</h4><input type="text" th:text="${el.firstName}" name="first_name" placeholder="Введіть анонс статті" class="form-control"><br>-->
+<!--      <h4>Last Name:</h4><input type="text" th:text="${el.lastName}" name="last_name" placeholder="Введіть анонс статті" class="form-control"><br>-->
+<!--      &lt;!&ndash;      <textarea name="full_text" placeholder="Введіть основний текст статті" class="form-control" th:text="${el.fullText}"></textarea><br>&ndash;&gt;-->
+<!--&lt;!&ndash;      <button type="submit" class="btn btn-success">Update user</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+<div class="container mt-50">
+  <div th:each="el : ${user}" class="alert alert-info mt-2">
+    <p th:text="'Username: ' + ${el.username}"/>
+    <p th:text="'Email: ' + ${el.email}"/>
+    <p th:text="'First name: ' + ${el.firstName}"/>
+    <p th:text="'Last name: ' + ${el.lastName}"/>
+    <a th:href="'/api/v1/user/' + ${el.id} + '/edit'" class="btn btn-secondary">Edit</a>
+  </div>
 </div>
+
 <div th:replace="~{blocks/footer :: footer}"></div>
 </body>
 </html>
