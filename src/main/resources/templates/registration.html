@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Just Interview</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <title>Just Interview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 </head>
 <body>
-<form action="/api/v1/auth/registration" method="post">
-  <div><label> Email : <input type="text" name="email"/> </label></div>
-  <div><label> Username : <input type="text" name="username"/> </label></div>
-  <div><label> First Name : <input type="text" name="firstName"/> </label></div>
-  <div><label> Last Name : <input type="text" name="lastName"/> </label></div>
-  <div><label> Password: <input type="password" name="password"/> </label></div>
-
-  <div><input type="submit" value="Sign In"/></div>
-</form>
+<div class="container m-auto">
+    <h2>Registration page</h2><br>
+    <form action="/api/v1/auth/registration" method="post">
+        <div><label> Email : </label><input type="text" name="email"/>
+        <div><label> Username : </label><input type="text" name="username"/></div>
+        <div><label> First Name : </label><input type="text" name="firstName"/></div>
+        <div><label> Last Name : </label><input type="text" name="lastName"/></div>
+        <div><label> Password: </label><input type="password" name="password"/></div>
+        <div><input type="submit" value="Register"/></div>
+    </form>
+</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.ourapp.SuperAppHome.config;
 
+import com.ourapp.SuperAppHome.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ABOUT_ENDPOINT = "/api/v1/about";
     private static final String AUTH_ENDPOINT = "/api/v1/auth/**";
     private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
-    private static final String LOGOUT_ENDPOINT = "/api/v1/auth/logout";
-    private static final String SUCCESS_ENDPOINT = "/api/v1/main";
+    private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
     private final UserDetailsService userDetailsService;
     @Autowired
     public SecurityConfig(UserDetailsService userDetailsService){
@@ -36,19 +36,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(MAIN_ENDPOINT, ABOUT_ENDPOINT,AUTH_ENDPOINT).permitAll()
+                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage(LOGIN_ENDPOINT)
-                .defaultSuccessUrl(SUCCESS_ENDPOINT)
+                .defaultSuccessUrl(MAIN_ENDPOINT)
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_ENDPOINT, "POST"))
+//                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_ENDPOINT, "POST"))
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl(SUCCESS_ENDPOINT);
+                .deleteCookies("JSESSIONID");
     }
 
     @Override
