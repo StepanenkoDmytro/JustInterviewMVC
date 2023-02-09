@@ -22,8 +22,9 @@
 
     <div th:each="el : ${allPosts}" class="alert alert-info mt-2">
         <h2 th:text="${el.title}"/>
+        <p th:text="'Автор: ' + ${el.author.username}"/>
         <h4 th:text="${el.anons}"/>
-        <h6 th:text="'Created: ' + ${el.created} + ' Last update ' + ${el.updated}"/>
+        <p th:text="'Created: ' + ${el.created} + ' Last update ' + ${el.updated}"/>
         <a th:href="'/api/v1/blog/' + ${el.id}" class="btn btn-secondary">Детальніше</a>
     </div>
 </div>

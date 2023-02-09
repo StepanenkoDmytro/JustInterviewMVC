@@ -10,17 +10,55 @@
 </head>
 <body>
 <header th:replace="~{blocks/header :: header}"></header>
+
 <div class="container mt-50">
     <div th:each="el : ${post}" class="alert alert-info mt-2">
-        <h3 th:text="${el.title}"/>
-        <p th:text="${el.anons}"/>
+        <h2 th:text="${el.title}"/>
+        <h6 th:text="'Автор: ' + ${el.author.username}"/>
+        <p th:text="'Дата створення: ' + ${el.created}"/>
         <p th:text="${el.fullText}"/>
+
         <div class="btn-group" role="group" aria-label="Basic example">
             <form th:action="'/api/v1/blog/' + ${el.id} + '/remove'" method="post">
-            <a th:href="'/api/v1/blog/' + ${el.id} + '/edit'" class="btn btn-secondary">Редагувати</a>
+                <a th:href="'/api/v1/blog/' + ${el.id} + '/edit'" class="btn btn-secondary">Редагувати</a>
                 <button class="btn btn-secondary" type="submit">Видалити</button>
             </form>
         </div>
+        <br><br>
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" th:text="'Коментарі (' + ${sizeList} + '):'"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <div th:each="comment : ${comments}">
+                <tbody>
+                <tr>
+                    <td>
+                        <h4 th:text="${comment.author.username}"/>
+                        <p th:text="'Дата: ' + ${comment.created}"/><br>
+                        <h5 th:text="${comment.comment}"/>
+                    </td>
+                    <td>
+                        <form action="/api/v1/blog/delcomment" method="post">
+                            <input type="hidden" name="comment_id" th:value="${comment.id}">
+                            <input type="hidden" name="post_id" th:value="${el.id}">
+                            <button type="submit" class="btn btn-danger">Видалити</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+        </table>
+
+        <form action="/api/v1/blog/addcomment" method="post">
+            <input type="hidden" name="id_post" th:value="${el.id}">
+            <textarea name="comment" placeholder="Введіть свій коментар" class="form-control"></textarea><br>
+            <button type="submit" class="btn btn-success">Додати коментар</button>
+        </form>
+
     </div>
 </div>
 

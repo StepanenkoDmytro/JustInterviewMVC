@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -18,6 +20,16 @@ public class Post extends BaseEntity{
     @NotBlank(message = "Post's text cannot be empty.")
     private String fullText;
 
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+            CascadeType.REFRESH,CascadeType.MERGE},
+            mappedBy = "post")
+    private List<СommentPost> comments;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+            CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "author_id")
+    private User author;
+
 
     public Post() {
     }
@@ -26,5 +38,13 @@ public class Post extends BaseEntity{
         this.title = title;
         this.anons = anons;
         this.fullText = fullText;
+    }
+
+    public void addCommentToPost(СommentPost comment){
+        if(comments == null){
+            comments = new ArrayList<>();
+        }
+        comments.add(comment);
+        comment.setPost(this);
     }
 }
