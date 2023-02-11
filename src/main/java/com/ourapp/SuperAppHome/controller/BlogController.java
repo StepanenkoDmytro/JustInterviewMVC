@@ -1,10 +1,9 @@
 package com.ourapp.SuperAppHome.controller;
 
-import com.ourapp.SuperAppHome.model.Post;
-import com.ourapp.SuperAppHome.model.Status;
-import com.ourapp.SuperAppHome.model.User;
-import com.ourapp.SuperAppHome.model.СommentPost;
+import com.ourapp.SuperAppHome.model.*;
 import com.ourapp.SuperAppHome.repository.CommentPostService;
+import com.ourapp.SuperAppHome.repository.PostRepository;
+import com.ourapp.SuperAppHome.repository.UserFollowsRepository;
 import com.ourapp.SuperAppHome.service.PostService;
 import com.ourapp.SuperAppHome.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/v1")
@@ -23,12 +24,17 @@ public class BlogController {
     private final PostService postService;
     private final CommentPostService commentPostService;
     private final UserService userService;
+    private final UserFollowsRepository userFollowsRepository;
+    private final PostRepository postRepository;
 
     @Autowired
-    public BlogController(PostService postService, CommentPostService commentPostService, UserService userService) {
+    public BlogController(PostService postService, CommentPostService commentPostService, UserService userService,UserFollowsRepository userFollowsRepository,
+                          PostRepository postRepository) {
         this.postService = postService;
         this.commentPostService = commentPostService;
         this.userService = userService;
+        this.userFollowsRepository = userFollowsRepository;
+        this.postRepository = postRepository;
     }
 
     @GetMapping("/blog")
@@ -37,10 +43,12 @@ public class BlogController {
         model.addAttribute("allPosts", allPosts);
         return "blog-main";
     }
+
     @GetMapping("/blog/add")
     public String addNewPost(Model model){
         return "blog-add";
     }
+
     @PostMapping("/blog/add")
     public String savePost(@AuthenticationPrincipal UserDetails userDetails,
                            @RequestParam String name,
@@ -56,11 +64,21 @@ public class BlogController {
     }
 
     @GetMapping("/blog/{id}")
-    public String getPost(@PathVariable(value = "id") long id, Model model){
+    public String getPost(@AuthenticationPrincipal UserDetails userDetails,
+                          @PathVariable(value = "id") long id, Model model){
         if(!postService.existsPostById(id)){
             return "redirect:/api/v1/blog";//переписати на свою 404 сторінку
         }
         Post post = postService.getPost(id);
+        User observer = userService.getUserByEmail(userDetails.getUsername()).get();
+
+        Set<Long> postPermission = userFollowsRepository.findAllByDistributor(post.getId())
+                .stream().map(UserFollows::getSubscriber).collect(Collectors.toSet());
+        postPermission.add(post.getAuthor().getId());
+        if(!postPermission.contains(observer.getId())) {
+            System.out.println("You don't have permissions");
+            return "redirect:/api/v1/blog";
+        }
         List<СommentPost> comments = post.getComments();
         int size = comments.size();
         model.addAttribute("post",post);
@@ -69,11 +87,17 @@ public class BlogController {
         return "blog-details";
     }
     @GetMapping("/blog/{id}/edit")
-    public String getEditPost(@PathVariable(value = "id") long id, Model model){
+    public String getEditPost(@AuthenticationPrincipal UserDetails userDetails,
+                              @PathVariable(value = "id") long id, Model model){
         if(!postService.existsPostById(id)){
             return "redirect:/api/v1/blog";//переписати на свою 404 сторінку
         }
         Post post = postService.getPost(id);
+        User user = post.getAuthor();
+        if(!userDetails.getUsername().equals(user.getEmail())){
+            System.out.println("You are not author of this post");
+            return "redirect:/api/v1/blog";
+        }
         model.addAttribute("post",post);
         return "blog-edit";
     }
@@ -84,6 +108,7 @@ public class BlogController {
                              @RequestParam String anons,
                              @RequestParam String full_text,
                              Model model){
+
         Post post = postService.getPost(id);
         post.setTitle(title);
         post.setAnons(anons);

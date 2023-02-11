@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1.2.0" author="dmytro.stepanenko">
+        <insert tableName="users">
+            <column name="username" value="stepa"/>
+            <column name="email" value="stepa@"/>
+            <column name="first_name" value="stepa"/>
+            <column name="last_name" value="stepa"/>
+            <column name="password" value="$2a$12$nqlh8wwc1bcKYFMxj0YrNupdeRRnXkmqOtT3GUBWNLXVpNkJIV9S2"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@"/>
+            <column name="first_name" value="admin"/>
+            <column name="last_name" value="admin"/>
+            <column name="password" value="$2a$12$.v/4gFV2W3OsR9ViaofWV.nmOKMcHjOZAkXi0amJzavKQzBK6IJSC"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

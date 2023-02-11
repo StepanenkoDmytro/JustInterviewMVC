@@ -28,6 +28,59 @@
     <table class="table">
         <thead class="thead-dark">
         <tr>
+            <th scope="col">Підписники</th>
+<!--            <th scope="col">Дія</th>-->
+        </tr>
+        </thead>
+        <div th:each="follow : ${followList}">
+            <tbody>
+            <tr>
+                <td>
+                    <p th:text="${follow.username}"/>
+                </td>
+                <td>
+                    <form th:action="'/api/v1/user/follow/' + ${follow.id} +'/no'" method="post">
+                        <button class="btn btn-secondary" type="submit">Видалити</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </div>
+    </table>
+</div>
+<div class="container mt-50">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Сповіщення</th>
+            <th scope="col">Дія</th>
+        </tr>
+        </thead>
+        <div th:each="follow : ${askFollowList}">
+            <tbody>
+            <tr>
+                <td>
+                    <p th:text="'Username: ' + ${follow.username} + ' want follow you'"/>
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <form th:action="'/api/v1/user/follow/' + ${follow.id} + '/yes'" method="post">
+                            <button class="btn btn-secondary" type="submit">Підтвердити</button>
+                        </form>
+                        <form th:action="'/api/v1/user/follow/' + ${follow.id} +'/no'" method="post">
+                            <button class="btn btn-secondary" type="submit">Відмовити</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </div>
+    </table>
+</div>
+<div class="container mt-50">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
             <th scope="col">Список постів</th>
             <th scope="col"></th>
         </tr>

@@ -6,8 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +16,7 @@ public class User extends BaseEntity {
     @Column(name = "username")
     @NotEmpty(message = "User's name cannot be empty.")
     @Size(min = 3, max = 100,
-    message = "length should be between 3 to 100")
+            message = "length should be between 3 to 100")
     private String username;
 
     @Column(name = "first_name")
@@ -43,17 +42,44 @@ public class User extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
-            CascadeType.REFRESH,CascadeType.MERGE},
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+            CascadeType.REFRESH, CascadeType.MERGE},
             mappedBy = "author")
     private List<Post> posts;
 
+//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+//            CascadeType.REFRESH, CascadeType.MERGE},
+//            mappedBy = "distributor")
+//    private Set<UserFollows> distributorAssoc;
 
-    public void addPostToUser(Post post){
-        if(posts == null){
+//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+//            CascadeType.REFRESH, CascadeType.MERGE},
+//            mappedBy = "subscriber")
+//    private Set<UserFollows> subscribersAssoc;
+
+
+
+//    @ManyToMany
+//    @JoinTable(name = "user_ask_followers",
+//            joinColumns = @JoinColumn(name = "first_user_id", referencedColumnName = "id", nullable = false),
+//            inverseJoinColumns = @JoinColumn(name = "second_user_id", referencedColumnName = "id", nullable = false))
+//    private Set<Long> askFollower;
+
+
+    public void addPostToUser(Post post) {
+        if (posts == null) {
             posts = new ArrayList<>();
         }
         posts.add(post);
         post.setAuthor(this);
     }
+
+//    public void addSubscribers(Long distributor, Long subscriber) {
+//        if (subscribersAssoc == null) {
+//            subscribersAssoc = new HashSet<>();
+//        }
+//        UserFollows userFollows = new UserFollows(distributor,subscriber);
+//        userFollows.setStatus(Status.NOT_ACTIVE);
+//        subscribersAssoc.add(userFollows);
+//    }
 }

@@ -31,6 +31,11 @@ public class Post extends BaseEntity{
     private User author;
 
 
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+//            mappedBy = "post")
+//    private List<Image> images;
+//    private Long previewImageId;
+
     public Post() {
     }
 
@@ -47,4 +52,9 @@ public class Post extends BaseEntity{
         comments.add(comment);
         comment.setPost(this);
     }
+
+//    public void addImageToPost(Image image) {
+//        image.setPost(this);
+//        images.add(image);
+//    }
 }
