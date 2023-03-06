@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "comments")
 @Data
-public class СommentPost extends BaseEntity{
+public class СommentToPost extends BaseEntity{
 
     @Column(name = "comment")
     @NotBlank(message = "Comment can not be empty")
@@ -26,10 +26,11 @@ public class СommentPost extends BaseEntity{
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public СommentPost() {
+
+    public СommentToPost() {
     }
 
-    public СommentPost(String comment) {
+    public СommentToPost(String comment) {
         this.comment = comment;
     }
 }

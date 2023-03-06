@@ -23,18 +23,12 @@ public class Post extends BaseEntity{
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
             CascadeType.REFRESH,CascadeType.MERGE},
             mappedBy = "post")
-    private List<СommentPost> comments;
+    private List<СommentToPost> comments;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
             CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "author_id")
     private User author;
-
-
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
-//            mappedBy = "post")
-//    private List<Image> images;
-//    private Long previewImageId;
 
     public Post() {
     }
@@ -45,7 +39,7 @@ public class Post extends BaseEntity{
         this.fullText = fullText;
     }
 
-    public void addCommentToPost(СommentPost comment){
+    public void addCommentToPost(СommentToPost comment){
         if(comments == null){
             comments = new ArrayList<>();
         }

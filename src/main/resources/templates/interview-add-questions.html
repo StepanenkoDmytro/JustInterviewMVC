@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title th:text="'Додати питання'"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header th:replace="~{blocks/header :: header}"></header>
+
+<div class="container mt-5 mb-5">
+    <h1>Додавання питання</h1>
+
+    <form action="/api/v1/listQuestions/addQuestion" method="post">
+
+        <div class="col-md-5">
+            <label for="id" class="form-label">Тема питання</label>
+            <select name="secId" class="form-select" id="id" required="">
+                <option value="">...</option>
+                <option th:each="sec : ${list_sections}"
+                        th:value="${sec.id}"
+                        th:text="${sec.sectionName}" value="${sec.id}">
+            </select>
+            <div class="invalid-feedback">
+                Please select a valid topic.
+            </div>
+        </div><br>
+        <input type="text" name="question" placeholder="Введіть питання" class="form-control"><br>
+        <textarea name="answer" placeholder="Введіть відповідь на питання" class="form-control"></textarea><br>
+        <button type="submit" class="btn btn-success">Додати питання</button>
+    </form>
+</div>
+
+<div th:replace="~{blocks/footer :: footer}"></div>
+</body>
+</html>

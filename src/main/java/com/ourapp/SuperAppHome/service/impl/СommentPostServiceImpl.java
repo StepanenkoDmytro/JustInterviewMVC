@@ -1,6 +1,6 @@
 package com.ourapp.SuperAppHome.service.impl;
 
-import com.ourapp.SuperAppHome.model.СommentPost;
+import com.ourapp.SuperAppHome.model.СommentToPost;
 import com.ourapp.SuperAppHome.repository.CommentPostService;
 import com.ourapp.SuperAppHome.service.СommentPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +19,17 @@ public class СommentPostServiceImpl implements СommentPostService {
     }
 
     @Override
-    public List<СommentPost> getAllComments() {
+    public List<СommentToPost> getAllComments() {
         return commentPostRepository.findAll();
     }
 
     @Override
-    public void saveСomment(СommentPost comment) {
+    public void saveСomment(СommentToPost comment) {
         commentPostRepository.save(comment);
     }
 
     @Override
-    public СommentPost getСommentById(long id) {
+    public СommentToPost getСommentById(long id) {
         return commentPostRepository.findById(id).get();
     }
 

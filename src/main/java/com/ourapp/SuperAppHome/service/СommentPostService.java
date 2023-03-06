@@ -1,13 +1,13 @@
 package com.ourapp.SuperAppHome.service;
 
-import com.ourapp.SuperAppHome.model.СommentPost;
+import com.ourapp.SuperAppHome.model.СommentToPost;
 
 import java.util.List;
 
 public interface СommentPostService {
-    List<СommentPost> getAllComments();
+    List<СommentToPost> getAllComments();
 
-    void saveСomment(СommentPost comment);
-    СommentPost getСommentById(long id);
+    void saveСomment(СommentToPost comment);
+    СommentToPost getСommentById(long id);
     void deleteСomment(long id);
 }

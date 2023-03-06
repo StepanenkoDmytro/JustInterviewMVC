@@ -57,7 +57,7 @@ public class BlogController {
                            Model model){
         User user = userService.getUserByEmail(userDetails.getUsername()).get();
         Post post = new Post(name,anons,full_text);
-        post.setAuthor(user);
+        user.addPostToUser(post);
         post.setStatus(Status.ACTIVE);
         postService.savePost(post);
         return "redirect:/api/v1/blog";
@@ -71,7 +71,6 @@ public class BlogController {
         }
         Post post = postService.getPost(id);
         User observer = userService.getUserByEmail(userDetails.getUsername()).get();
-
         Set<Long> postPermission = userFollowsRepository.findAllByDistributor(post.getId())
                 .stream().map(UserFollows::getSubscriber).collect(Collectors.toSet());
         postPermission.add(post.getAuthor().getId());
@@ -79,7 +78,7 @@ public class BlogController {
             System.out.println("You don't have permissions");
             return "redirect:/api/v1/blog";
         }
-        List<СommentPost> comments = post.getComments();
+        List<СommentToPost> comments = post.getComments();
         int size = comments.size();
         model.addAttribute("post",post);
         model.addAttribute("comments",comments);
@@ -129,7 +128,7 @@ public class BlogController {
                                  Model model){
         User user = userService.getUserByEmail(userDetails.getUsername()).get();
         Post post = postService.getPost(id);
-        СommentPost commentPost = new СommentPost(comment);
+        СommentToPost commentPost = new СommentToPost(comment);
         commentPost.setStatus(Status.ACTIVE);
         commentPost.setAuthor(user);
         post.addCommentToPost(commentPost);

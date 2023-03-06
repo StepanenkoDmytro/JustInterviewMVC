@@ -127,7 +127,7 @@ public class UserController {
 
     public List<User> getFollowList(List<UserFollows> followsList){
         List<User> followList = new ArrayList<>();
-        for(UserFollows u : followsList){
+        for(UserFollows u : followsList) {
             if(u.getStatus() == Status.ACTIVE)
                 followList.add(userService.getUserById(u.getSubscriber()).get());
         }

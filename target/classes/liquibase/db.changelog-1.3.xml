@@ -1,0 +1,108 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1.3.0" author="dmytro.stepanenko">
+        <createTable tableName="topics">
+            <column name="topic_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="topic_name" type="VARCHAR(45)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="topic_desc" type="VARCHAR(45)">
+                <constraints nullable="true" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.3.1" author="dmytro.stepanenko">
+        <createTable tableName="sections">
+            <column name="section_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="section_name" type="VARCHAR(45)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+
+            <column name="section_desc" type="VARCHAR(45)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+
+            <column name="topic_fk_id" type="BIGINT">
+                <constraints nullable="true" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.3.2" author="dmytro.stepanenko">
+        <addForeignKeyConstraint baseColumnNames="topic_fk_id"
+                                 baseTableName="sections"
+                                 constraintName="fk_sections_topic_fk_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="topic_id"
+                                 referencedTableName="topics"/>
+    </changeSet>
+
+    <changeSet id="1.3.3" author="dmytro.stepanenko">
+        <createTable tableName="questions">
+            <column name="question_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="question_name" type="VARCHAR(150)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+
+            <column name="question_answer" type="VARCHAR(45)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+
+            <column name="section_id" type="BIGINT">
+                <constraints nullable="true" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.3.4" author="dmytro.stepanenko">
+        <addForeignKeyConstraint baseColumnNames="section_id"
+                                 baseTableName="questions"
+                                 constraintName="fk_questions_section_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="section_id"
+                                 referencedTableName="sections"/>
+    </changeSet>
+
+    <changeSet id="1.3.5" author="dmytro.stepanenko">
+        <createTable tableName="source_for_question">
+            <column name="source_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="source_link" type="VARCHAR(150)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+
+            <column name="question_id" type="BIGINT">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.3.6" author="dmytro.stepanenko">
+        <addForeignKeyConstraint baseColumnNames="question_id"
+                                 baseTableName="source_for_question"
+                                 constraintName="fk_source_for_question_question_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="question_id"
+                                 referencedTableName="questions"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -19,6 +19,21 @@
             <column name="last_name" value="admin"/>
             <column name="password" value="$2a$12$.v/4gFV2W3OsR9ViaofWV.nmOKMcHjOZAkXi0amJzavKQzBK6IJSC"/>
         </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="2"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

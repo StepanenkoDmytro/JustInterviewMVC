@@ -13,6 +13,12 @@
 <div class="container">
   <h1>About page</h1>
 </div>
+<div class="container">
+  <a th:href="'/api/v1/admin'" class="btn btn-secondary">Admin page</a><br>
+  <a th:href="'/api/v1/listQuestions'" class="btn btn-secondary">List Questions</a>
+</div>
+<!--<p th:href="/api/v1/admin">Admin page</p>-->
+<!--<li class="nav-item"><a href="/api/v1/admin" class="nav-link">Admin page</a></li>-->
 <div th:replace="~{blocks/footer :: footer}"></div>
 </body>
 </html>

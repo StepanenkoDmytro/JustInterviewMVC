@@ -4,19 +4,15 @@ import com.ourapp.SuperAppHome.model.Role;
 import com.ourapp.SuperAppHome.model.Status;
 import com.ourapp.SuperAppHome.model.User;
 import com.ourapp.SuperAppHome.repository.RoleRepository;
-import com.ourapp.SuperAppHome.repository.UserRepository;
 import com.ourapp.SuperAppHome.service.UserService;
-import jdk.jshell.Snippet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

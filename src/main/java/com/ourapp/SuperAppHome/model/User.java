@@ -47,25 +47,6 @@ public class User extends BaseEntity {
             mappedBy = "author")
     private List<Post> posts;
 
-//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-//            CascadeType.REFRESH, CascadeType.MERGE},
-//            mappedBy = "distributor")
-//    private Set<UserFollows> distributorAssoc;
-
-//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-//            CascadeType.REFRESH, CascadeType.MERGE},
-//            mappedBy = "subscriber")
-//    private Set<UserFollows> subscribersAssoc;
-
-
-
-//    @ManyToMany
-//    @JoinTable(name = "user_ask_followers",
-//            joinColumns = @JoinColumn(name = "first_user_id", referencedColumnName = "id", nullable = false),
-//            inverseJoinColumns = @JoinColumn(name = "second_user_id", referencedColumnName = "id", nullable = false))
-//    private Set<Long> askFollower;
-
-
     public void addPostToUser(Post post) {
         if (posts == null) {
             posts = new ArrayList<>();
@@ -73,13 +54,4 @@ public class User extends BaseEntity {
         posts.add(post);
         post.setAuthor(this);
     }
-
-//    public void addSubscribers(Long distributor, Long subscriber) {
-//        if (subscribersAssoc == null) {
-//            subscribersAssoc = new HashSet<>();
-//        }
-//        UserFollows userFollows = new UserFollows(distributor,subscriber);
-//        userFollows.setStatus(Status.NOT_ACTIVE);
-//        subscribersAssoc.add(userFollows);
-//    }
 }
