@@ -1,5 +1,6 @@
 package com.ourapp.SuperAppHome.model.interview;
 
+import com.ourapp.SuperAppHome.model.Post;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,8 +17,6 @@ public class Question {
     private Long id;
     @Column(name = "question_name")
     private String question;
-    @Column(name = "question_answer")
-    private String answer;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
             CascadeType.REFRESH,CascadeType.MERGE})
@@ -33,9 +32,8 @@ public class Question {
     public Question() {
     }
 
-    public Question(String question, String answer, Section section) {
+    public Question(String question, Section section) {
         this.question = question;
-        this.answer = answer;
         this.section = section;
     }
     public void addSourceToQuestion(SourceForQuestion source){

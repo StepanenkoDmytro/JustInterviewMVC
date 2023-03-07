@@ -1,0 +1,36 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1.4.0" author="dmytro.stepanenko">
+        <createTable tableName="posts_tags">
+            <column name="post_id" type="BIGINT">
+            </column>
+
+            <column name="tags_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.4.1" author="dmytro.stepanenko">
+        <addForeignKeyConstraint baseColumnNames="post_id"
+                                 baseTableName="posts_tags"
+                                 constraintName="fk_posts_tags_post_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="posts"/>
+    </changeSet>
+
+    <changeSet id="1.4.2" author="dmytro.stepanenko">
+        <addForeignKeyConstraint baseColumnNames="tags_id"
+                                 baseTableName="posts_tags"
+                                 constraintName="fk_posts_tags_tag_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tags"/>
+    </changeSet>
+
+</databaseChangeLog>

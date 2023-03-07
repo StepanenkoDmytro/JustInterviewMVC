@@ -4,8 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "posts")
@@ -30,6 +29,13 @@ public class Post extends BaseEntity{
     @JoinColumn(name = "author_id")
     private User author;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+            CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinTable(name = "posts_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tags_id"))
+    private List<Tag> tags;
+
     public Post() {
     }
 
@@ -38,6 +44,24 @@ public class Post extends BaseEntity{
         this.anons = anons;
         this.fullText = fullText;
     }
+
+//    public void addTagToPost(String tag){
+//        if(tags == null){
+//            tags = new ArrayList<>();
+//        }
+//        String[] arrayTags = tag.split(" ");
+//        for (String newTag : arrayTags) {
+//            Tag tag1 = new Tag();
+//            tag1.setName("#" + newTag);
+//            tags.add(tag1);
+//        }
+//    }
+public void addTagToPost(Tag tag){
+    if(tags == null){
+        tags = new ArrayList<>();
+    }
+        tags.add(tag);
+}
 
     public void addCommentToPost(СommentToPost comment){
         if(comments == null){

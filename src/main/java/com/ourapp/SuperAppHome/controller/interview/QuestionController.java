@@ -38,11 +38,9 @@ public class QuestionController {
     @PostMapping("addQuestion")
     public String saveQuestionTopic(@RequestParam(name = "secId") long id,
                                     @RequestParam String question,
-                                    @RequestParam String answer,
                                     Model model){
         Question questionSec = new Question();
         questionSec.setQuestion(question);
-        questionSec.setAnswer(answer);
         Section section = sectionRepository.findById(id).orElse(null);
         section.addQuestionToSection(questionSec);
         sectionRepository.save(section);

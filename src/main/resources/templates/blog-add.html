@@ -13,6 +13,7 @@
 <div class="container mt-5 mb-5" >
   <h1>Додавання статті</h1>
   <form action="/api/v1/blog/add" method="post">
+    <input type="text" name="tag" placeholder="Введіть tags для статті" class="form-control"><br>
     <input type="text" name="name" placeholder="Введіть назву статті" class="form-control"><br>
     <input type="text" name="anons" placeholder="Введіть анонс статті" class="form-control"><br>
     <textarea name="full_text" placeholder="Введіть основний текст статті" class="form-control"></textarea><br>
