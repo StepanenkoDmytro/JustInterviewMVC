@@ -1,5 +1,6 @@
 package com.ourapp.SuperAppHome.model;
 
+import com.ourapp.SuperAppHome.model.blog_part.Post;
 import lombok.Data;
 
 import javax.persistence.*;
